@@ -1,17 +1,3 @@
-// const questions = [
-  
-// ];
-
-// function writeToFile(fileName, data) {
- 
-// }
-
-// function init() {
-
-// init();
-//
-
-
 // ask user for fav color
 // -- use inquirer
 
@@ -36,49 +22,47 @@ const writeFileAsync = util.promisify(fs.writeFile);
 function promptUser() {
   return inquirer.prompt([
     {
-        type: "input",
-        name: "name",
-        message: "What is your name?"
-      },
-    {
-        type: "input",
-    message:"Enter Your GitHub username",
-    name: "username"
+      type: "input",
+      name: "name",
+      message: "What is your name?"
     },
     {
-        type: "input",
-        name: "location",
-        message: "Where are you from?"
-      },
-      {
-        type: "input",
-        name: "hobby",
-        message: "What is your favorite hobby?"
-      },
-      {
-        type: "input",
-        name: "food",
-        message: "What is your favorite food?"
-      },
+      type: "input",
+      message: "Enter Your GitHub username",
+      name: "username"
+    },
     {
-        type: "input",
-        name: "linkedin",
-        message: "Enter your LinkedIn URL."
-      },
-
-
+      type: "input",
+      name: "location",
+      message: "Where are you from?"
+    },
     {
-        type: "list",
-        message: "What is your favorite color?",
-        name: "color",
-        choices: [
-            "green",
-            "blue",
-            "pink",
-            "red",
-        ]
+      type: "input",
+      name: "hobby",
+      message: "What is your favorite hobby?"
+    },
+    {
+      type: "input",
+      name: "food",
+      message: "What is your favorite food?"
+    },
+    {
+      type: "input",
+      name: "linkedin",
+      message: "Enter your LinkedIn URL."
+    },
+    {
+      type: "list",
+      message: "What is your favorite color?",
+      name: "color",
+      choices: [
+        "green",
+        "blue",
+        "pink",
+        "red",
+      ]
     }
-])
+  ])
 .then(function({username}) {
     const queryUrl = `https://api.github.com/users/${username}`;
     axios.get(queryUrl).then(function(res){
@@ -310,10 +294,7 @@ function generateHTML(answers) {
   </html>`;
   }
  
-pdf.create(html).toFile('./test.pdf', function(err, res) {
-  if (err) return console.log(err);
-  console.log(res); // { filename: '/app/businesscard.pdf' }
-});
+
 
 
 async function init() {
@@ -333,4 +314,9 @@ async function init() {
 
 init();
 
+
+pdf.create(html).toFile('./profile.pdf', function(err, res) {
+  if (err) return console.log(err);
+  console.log(res); // { filename: '/app/profile.pdf' }
+});
 
