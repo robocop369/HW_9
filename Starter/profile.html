@@ -1,116 +1,4 @@
-// ask user for fav color
-// -- use inquirer
 
-
-// make a call out to github for github info
-// address for the data that you want
-// provider -- axios
-// example https://api.github.com/users/
-
-
-// take data and print to pdf
-
-const inquirer = require("inquirer");
-const fs = require("fs");
-const util = require("util");
-const pdf = require('html-pdf');
-const axios = require("axios");
-// const generateHTML = require("./generateHTML");
-
-const writeFileAsync = util.promisify(fs.writeFile);
-
-// function promptUser() {
-return  inquirer.prompt([
-    {
-      type: "input",
-      name: "name",
-      message: "What is your name?"
-    },
-    {
-      type: "input",
-      name: "username",
-      message: "Enter Your GitHub username"
-    },
-    {
-      type: "input",
-      name: "location",
-      message: "Where are you from?"
-    },
-    {
-      type: "input",
-      name: "hobby",
-      message: "What is your favorite hobby?"
-    },
-    {
-      type: "input",
-      name: "food",
-      message: "What is your favorite food?"
-    },
-    {
-      type: "input",
-      name: "linkedin",
-      message: "Enter your LinkedIn URL."
-    },
-    {
-      type: "list",
-      name: "color",
-      message: "What is your favorite color?",
-      choices: [
-        "green",
-        "blue",
-        "pink",
-        "red",
-      ]
-    }
-  ])
-
-.then(async answers => {
-  console.log("answers: ", answers)
-  let {username} = answers;
-
-    const queryUrl = `https://api.github.com/users/${username}`;
-    let responseFromGithub = await axios.get(queryUrl).then(function(res){
-        console.log(res.data.avatar_url) // Profile Img
-        console.log(res.data.login) // Username
-        console.log(res.data.location) // Location
-        console.log(res.data.blog) // Blog Link
-        console.log(res.data.bio) // Bio
-        console.log(res.data.public_repos) // Public Repos
-        console.log(res.data.followers) // Follower 
-        console.log(res.data.following) // Following
-    })
-   
-
-
-    let generateHTML = function(answers) {
-      const colors = {
-        green: {
-          wrapperBackground: "#E6E1C3",
-          headerBackground: "#C1C72C",
-          headerColor: "black",
-          photoBorderColor: "#black"
-        },
-        blue: {
-          wrapperBackground: "#5F64D3",
-          headerBackground: "#26175A",
-          headerColor: "white",
-          photoBorderColor: "#73448C"
-        },
-        pink: {
-          wrapperBackground: "#879CDF",
-          headerBackground: "#FF8374",
-          headerColor: "white",
-          photoBorderColor: "#FEE24C"
-        },
-        red: {
-          wrapperBackground: "#DE9967",
-          headerBackground: "#870603",
-          headerColor: "white",
-          photoBorderColor: "white"
-        }
-      };
-
-      return `
       <!DOCTYPE html>
       <html lang="en">
          <head>
@@ -137,7 +25,7 @@ return  inquirer.prompt([
                height: 100%;
                }
                .wrapper {
-               background-color: ${colors[answers.color].wrapperBackground};
+               background-color: #5F64D3;
                padding-top: 100px;
                }
                body {
@@ -179,8 +67,8 @@ return  inquirer.prompt([
                display: flex;
                justify-content: center;
                flex-wrap: wrap;
-               background-color: ${colors[answers.color].headerBackground};
-               color: ${colors[answers.color].headerColor};
+               background-color: #26175A;
+               color: white;
                padding: 10px;
                width: 95%;
                border-radius: 6px;
@@ -191,7 +79,7 @@ return  inquirer.prompt([
                border-radius: 50%;
                object-fit: cover;
                margin-top: -75px;
-               border: 6px solid ${colors[answers.color].photoBorderColor};
+               border: 6px solid #73448C;
                box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
                }
                .photo-header h1, .photo-header h2 {
@@ -232,8 +120,8 @@ return  inquirer.prompt([
                .card {
                  padding: 20px;
                  border-radius: 6px;
-                 background-color: ${colors[answers.color].headerBackground};
-                 color: ${colors[answers.color].headerColor};
+                 background-color: #26175A;
+                 color: white;
                  margin: 20px;
                }
                .col {
@@ -255,51 +143,35 @@ return  inquirer.prompt([
          <body>
             <div class="wrapper">
                <div class="photo-header">
-                  <img src="${answers.avatar_url}" alt="Photo of ${answers.name}" />
+                  <img src="undefined" alt="Photo of Azul" />
                   <h1>Hi!</h1>
                   <h2>
-                  My name is ${answers.name}!</h1>
-                  <h5>${answers.company ? `Currently @ ${answers.company}` : ""}</h5>
+                  My name is Azul!</h1>
+                  <h5></h5>
                   <nav class="links-nav">
-                     ${
-          answers.location
-            ? `<a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/place/${
-            answers.location
-            }"><i class="fas fa-location-arrow"></i> ${
-            answers.location
-            }</a>`
-            : ""
-          }
-                     <a class="nav-link" target="_blank" rel="noopener noreferrer" href="${
-          answers.html_url
-          }"><i class="fab fa-github-alt"></i> GitHub</a>
-                     ${
-          answers.blog
-            ? `<a class="nav-link" target="_blank" rel="noopener noreferrer" href="${
-            answers.blog
-            }"><i class="fas fa-rss"></i> Blog</a>`
-            : ""
-          }
+                     <a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/place/xikago"><i class="fas fa-location-arrow"></i> xikago</a>
+                     <a class="nav-link" target="_blank" rel="noopener noreferrer" href="undefined"><i class="fab fa-github-alt"></i> GitHub</a>
+                     
                   </nav>
                </div>
                <main>
                   <div class="container">
                   <div class="row">
                      <div class="col">
-                        <h3>${answers.bio ? `${answers.bio}` : ""}</h3>
+                        <h3></h3>
                      </div>
                      </div>
                      <div class="row">
                      <div class="col">
                         <div class="card">
                           <h3>Public Repositories</h3>
-                          <h4>${answers.public_repos}</h4>
+                          <h4>undefined</h4>
                         </div>
                      </div>
                       <div class="col">
                       <div class="card">
                         <h3>Followers</h3>
-                        <h4>${answers.followers}</h4>
+                        <h4>undefined</h4>
                       </div>
                      </div>
                      </div>
@@ -307,13 +179,13 @@ return  inquirer.prompt([
                      <div class="col">
                      <div class="card">
                         <h3>GitHub Stars</h3>
-                        <h4>${answers.stars}</h4>
+                        <h4>undefined</h4>
                         </div>
                      </div>
                       <div class="col">
                       <div class="card">
                         <h3>Following</h3>
-                        <h4>${answers.following}</h4>
+                        <h4>undefined</h4>
                         </div>
                      </div>
                      </div>
@@ -321,36 +193,4 @@ return  inquirer.prompt([
                </main>
             </div>
          </body>
-      </html>`;
-      }
-               
-    let init = async function() {
-      console.log("hi")
-      try {
-        // const answers = await promptUser();
-    
-        const html =  generateHTML(answers);
-    
-        writeFileAsync("profile.html", html);
-        
-        pdf.create(html).toFile('./profile.pdf', function(err, res) {
-          if (err) return console.log(err);
-          console.log(res); // { filename: '/app/profile.pdf' }
-        });
-        
-        console.log("Successfully wrote to profile.html");
-      } catch(err) {
-        console.log(err);
-      }
-    
-    
-    }
-    
-    init();
-    
-  
-})
-// }      
-//need to connect with the other js file 
-
-
+      </html>
